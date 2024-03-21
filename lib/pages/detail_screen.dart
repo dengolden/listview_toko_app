@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:listview_toko_app/models/barang.dart';
+import 'package:listview_toko_app/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailBarangScreen extends StatelessWidget {
   final Barang barang;
@@ -54,7 +56,10 @@ class DetailBarangScreen extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  keranjang.add(barang);
+                  final cartProvider =
+                      Provider.of<CartProvider>(context, listen: false);
+
+                  cartProvider.addItemToCart(barang);
                   Navigator.pushNamed(context, '/keranjang');
                 },
                 child: Text(
