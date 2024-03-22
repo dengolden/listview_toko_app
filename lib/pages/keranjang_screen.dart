@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:listview_toko_app/models/barang.dart';
 import 'package:listview_toko_app/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -55,14 +56,60 @@ class KeranjangScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage(keranjang[index].foto),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      left: 10,
+                      top: 15,
                     ),
-                    title: Text(
-                      keranjang[index].nama,
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundImage: AssetImage(keranjang[index].foto),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                keranjang[index].nama,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(keranjang[index].harga),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                cartProvider.decrementItem(keranjang[index]);
+                              },
+                              icon: Icon(
+                                Icons.remove,
+                                size: 20,
+                              ),
+                            ),
+                            Text(keranjang[index].jumlah.toString()),
+                            IconButton(
+                              onPressed: () {
+                                cartProvider.incrementItem(keranjang[index]);
+                              },
+                              icon: Icon(
+                                Icons.add,
+                                size: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    subtitle: Text(keranjang[index].harga),
                   ),
                 );
               },
